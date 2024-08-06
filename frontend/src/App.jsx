@@ -3,6 +3,7 @@ import axios from "axios"
 import Header from "./components/header/Header"
 import './App.css'
 import { Outlet } from 'react-router-dom'
+import configVariables from './configurations/Config'
 
 function App() {
   const [dashboardData, setDashboardData] = useState([])
@@ -11,7 +12,7 @@ function App() {
 
   const getDashboardData = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/dashboard/")
+      const response = await axios.get(`${configVariables.ipAddress}/dashboard/`)
       setDashboardData(response.data.data)
 
     } catch (error) {

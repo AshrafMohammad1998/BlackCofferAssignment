@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import axios from "axios"
+import Header from "./components/header/Header"
 import './App.css'
+import { Outlet } from 'react-router-dom'
 
 function App() {
   const [dashboardData, setDashboardData] = useState([])
@@ -8,23 +10,26 @@ function App() {
   console.log(dashboardData)
 
   const getDashboardData = async () => {
-    try{
+    try {
       const response = await axios.get("http://localhost:8080/dashboard/")
       setDashboardData(response.data.data)
-      
-    }catch(error){
-      console.log("Error: ",Error)
+
+    } catch (error) {
+      console.log("Error: ", Error)
     }
   }
 
   useEffect(() => {
     getDashboardData()
-  },[])
+  }, [])
 
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div className="pt-6 bg-white dark:bg-slate-800 dark:text-white flex flex-col min-h-screen">
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+    </div>
   )
 }
 
